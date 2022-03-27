@@ -1,0 +1,76 @@
+:root {
+	--transition-duration: 0.1s;
+	--transition-method: ease;
+}
+
+.btn {
+	font-family: inherit;
+	border: none;
+	border-radius: 3px;
+	font-weight: 500;
+	padding: 0.5em 1em;
+}
+
+.btn:not(:disabled) {
+	cursor: pointer;
+}
+
+.btn.default {
+	background-color: transparent;
+	color: var(--main-color);
+	border: 2px solid var(--main-color);
+	transition-property: color, border-color;
+}
+
+.btn.filled {
+	background-color: var(--main-color);
+	color: white;
+	transition-property: background-color;
+}
+
+.btn.icon {
+	padding: 0;
+	color: inherit;
+	background-color: transparent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.btn.icon svg {
+	fill: var(--main-color);
+	transition-property: fill;
+}
+
+.btn.default:disabled {
+	color: var(--color-lighter);
+	border-color: var(--color-lighter);
+}
+
+.btn.filled:disabled {
+	background-color: var(--color-lighter);
+}
+
+.btn.icon:disabled svg {
+	fill: var(--color-lighter);
+}
+
+.btn,
+.btn.icon svg {
+	transition-duration: var(--transition-duration);
+	transition-timing-function: var(--transition-method);
+}
+
+@media (hover: hover) {
+	.btn.default:not(:disabled):hover {
+		border-color: var(--color-light);
+		color: var(--color-light);
+	}
+	.btn.filled:not(:disabled):hover {
+		background-color: var(--color-light);
+	}
+	.btn.icon:not(:disabled):hover svg {
+		fill: var(--color-light);
+	}
+}

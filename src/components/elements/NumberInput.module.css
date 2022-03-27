@@ -1,0 +1,22 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	padding: 0.25rem;
+	border-radius: 3px;
+	border: 1px solid var(--color-light);
+}
+
+.input {
+	outline: none;
+	border: none;
+	background-color: transparent;
+	font-size: 1rem;
+	text-align: center;
+	width: 8ch;
+}
+
+.btn {
+	font-size: 1.5rem;
+}

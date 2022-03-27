@@ -1,0 +1,38 @@
+.container,
+.link,
+.section {
+	width: 100%;
+	height: 100%;
+}
+
+.container,
+.link {
+	display: grid;
+	place-items: center;
+	grid-template-columns: 1fr;
+}
+
+.container {
+	grid-template-rows: 1fr 3rem;
+}
+
+.link {
+	text-decoration: none;
+	grid-template-rows: 1fr 2.5rem;
+}
+.title {
+	width: 100%;
+}
+.section.img {
+	aspect-ratio: 1;
+}
+.section.bottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+@media (hover: hover) {
+	.link:hover {
+		text-decoration: underline;
+	}
+}

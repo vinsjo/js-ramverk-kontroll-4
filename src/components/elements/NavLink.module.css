@@ -1,0 +1,12 @@
+.link {
+	color: inherit;
+	text-decoration: underline solid transparent 3px;
+	text-decoration-skip: none;
+	text-decoration-skip-ink: none;
+	text-underline-position: under;
+}
+
+.link.active {
+	text-decoration-color: inherit;
+	font-weight: 500;
+}

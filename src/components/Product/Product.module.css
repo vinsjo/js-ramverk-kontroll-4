@@ -1,0 +1,23 @@
+.container {
+	width: 100%;
+	max-width: 100ch;
+	display: grid;
+	grid-auto-flow: row;
+	place-items: center;
+	gap: 1rem;
+}
+
+.img-container {
+	aspect-ratio: 1;
+	width: 100%;
+	height: auto;
+	max-height: 60vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.description {
+	line-height: 160%;
+	font-size: 1.1rem;
+}

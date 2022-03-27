@@ -1,0 +1,47 @@
+:root {
+	--main-font: 'IBM Plex Sans', sans-serif;
+	--logo-font: 'Modak', var(--main-font);
+
+	--main-color: black;
+	--color-light: rgb(150, 150, 150);
+	--color-lighter: rgb(200, 200, 200);
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	/* box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2); */
+}
+
+html {
+	font-size: 1rem;
+}
+
+body {
+	font-family: var(--main-font);
+}
+
+a {
+	color: inherit;
+	transition-property: color;
+}
+
+a,
+a img {
+	transition-duration: 0.1s;
+	transition-timing-function: ease;
+}
+
+a img {
+	transition-property: opacity;
+}
+
+@media (hover: hover) {
+	a:hover {
+		color: var(--color-light);
+	}
+	a:hover img {
+		opacity: 0.5;
+	}
+}
