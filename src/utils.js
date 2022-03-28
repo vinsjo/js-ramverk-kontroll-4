@@ -39,4 +39,35 @@ const removeItemAtIndex = (arr, index) => {
 	return [...arr.slice(0, index), ...arr.slice(index + 1)];
 };
 
-export { formatPrice, classNames, replaceItemAtIndex, removeItemAtIndex };
+/**
+ * @param {String} storageKey
+ * @param {Array|Object} items
+ */
+const setStoredItems = (storageKey, items) => {
+	try {
+		localStorage.setItem(storageKey, JSON.stringify(items));
+	} catch (e) {
+		console.error(e);
+	}
+};
+/**
+ * @param {String} storageKey
+ */
+const getStoredItems = storageKey => {
+	try {
+		const storedItems = localStorage.getItem(storageKey);
+		return storedItems ? JSON.parse(storedItems) : null;
+	} catch (e) {
+		console.error(e);
+		return null;
+	}
+};
+
+export {
+	formatPrice,
+	classNames,
+	replaceItemAtIndex,
+	removeItemAtIndex,
+	getStoredItems,
+	setStoredItems,
+};

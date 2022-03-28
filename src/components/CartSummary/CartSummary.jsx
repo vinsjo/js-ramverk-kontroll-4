@@ -18,6 +18,7 @@ const CartSummary = () => {
 		}, 2000);
 		return () => clearTimeout(timeout);
 	}, [showPopup, setShowPopup]);
+
 	return (
 		<div className={styles.container}>
 			<ul className={styles.items}>

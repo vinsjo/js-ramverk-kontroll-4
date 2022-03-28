@@ -1,15 +1,15 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+// import { useRecoilValue } from 'recoil';
+// import productsState from '../recoil/products/atom';
 import Layout from '../components/Layout';
 import Product from '../components/Product';
-import products from '../data/products.json';
+import useProducts from '../hooks/useProducts';
 
 const ProductDetails = () => {
 	const { productId } = useParams();
-	const product = products.find(
-		product => product.id.toString() === productId
-	);
-
+	const products = useProducts();
+	const product = products.getProduct(productId);
 	return (
 		<Layout>
 			<Product product={product} />

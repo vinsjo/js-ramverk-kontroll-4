@@ -16,7 +16,8 @@ const Nav = () => {
 				</li>
 				<li>
 					<NavLink to="/cart" title="Shopping Cart">
-						Cart ({cart.count})
+						Cart
+						{cart.count && `(${cart.count})`}
 					</NavLink>
 				</li>
 			</ul>
