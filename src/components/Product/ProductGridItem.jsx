@@ -8,7 +8,7 @@ import styles from './ProductGridItem.module.css';
 const ProductGridItem = ({ product, onAdd }) => {
 	return (
 		<div className={styles.container}>
-			<Link className={styles.link} to={`/product/${product.id}`}>
+			<Link className={styles.link} to={`/products/${product.id}`}>
 				<div className={classNames(styles.section, styles.img)}>
 					<ProductImage product={product} />
 				</div>

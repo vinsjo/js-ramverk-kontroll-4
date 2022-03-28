@@ -13,7 +13,7 @@ const CartItem = ({ product, count, onCountChange, onDelete }) => {
 			</Button>
 			<div className={styles.info}>
 				<Link
-					to={`/product/${product.id}`}
+					to={`/products/${product.id}`}
 					title="Product Page"
 					className={styles.title}
 				>

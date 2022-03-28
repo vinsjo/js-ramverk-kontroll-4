@@ -6,7 +6,12 @@ const useProducts = () => {
 	const [products, setProducts] = useRecoilState(productsState);
 
 	const getProduct = id => {
-		return products.find(product => product.id === id) || null;
+		return (
+			products.find(
+				product =>
+					(isStr(id) ? product.id.toString() : product.id) === id
+			) || null
+		);
 	};
 
 	const getProductPrice = id => {
@@ -18,7 +23,6 @@ const useProducts = () => {
 		getProduct,
 		getProductPrice,
 	};
-	return [products, { getProduct, getProductPrice }];
 };
 
 export default useProducts;

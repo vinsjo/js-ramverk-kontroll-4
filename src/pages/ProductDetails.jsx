@@ -12,7 +12,7 @@ const ProductDetails = () => {
 	const product = products.getProduct(productId);
 	return (
 		<Layout>
-			<Product product={product} />
+			{!product ? 'Product not found :(' : <Product product={product} />}
 		</Layout>
 	);
 };

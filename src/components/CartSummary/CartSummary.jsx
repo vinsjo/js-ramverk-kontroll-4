@@ -8,7 +8,6 @@ import styles from './CartSummary.module.css';
 
 const CartSummary = () => {
 	const cart = useCart();
-
 	const [showPopup, setShowPopup] = useState(false);
 
 	useEffect(() => {

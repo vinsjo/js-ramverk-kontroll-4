@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import styles from './Layout.module.css';
+import AuthRequired from '../AuthRequired';
 
 const Layout = ({ children }) => {
 	return (
