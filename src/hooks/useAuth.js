@@ -3,45 +3,52 @@ import { useRecoilState } from 'recoil';
 import authState from '../stores/auth/atom';
 import axios from 'axios';
 
-// username: "mor_2314",
-// password: "83r5^_"
-
 const useAuth = () => {
 	const [auth, setAuth] = useRecoilState(authState);
 	const [user, setUser] = useState(null);
 
-	const isAuthorized = () => auth && auth.token;
+	const [isAuthorized, setIsAuthorized] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false);
+
+	useEffect(() => {
+		const isAuth = auth && auth.token;
+		setIsAuthorized(isAuth);
+		if (!isAuth) return;
+		const controller = new AbortController();
+		axios
+			.get(`https://k4backend.osuka.dev/users/${auth.userId}`, {
+				signal: controller.signal,
+			})
+			.then(res => setUser(res.data))
+			.catch(e => console.log(e));
+		return () => controller.abort();
+	}, [auth]);
+
+	useEffect(() => {
+		setIsAdmin(user && user.role === 'admin');
+	}, [user]);
 
 	/**
 	 * @param {{username: String, password: string}} data
 	 */
 	const login = data => {
+		const controller = new AbortController();
 		axios
-			.post('https://k4backend.osuka.dev/auth/login/', data)
+			.post('https://k4backend.osuka.dev/auth/login/', {
+				...data,
+				signal: controller.signal,
+			})
 			.then(res => setAuth(res.data))
-			.catch(() => console.log('Failed login :('));
+			.catch(e => console.log(e.type));
+		return () => controller.abort();
 	};
+
 	const logout = () => setAuth(null);
 
-	useEffect(() => {
-		if (!isAuthorized()) return setUser(null);
-
-		axios
-			.get(`https://k4backend.osuka.dev/users/${auth.userId}`)
-			.then(res => setUser(res.data))
-			.catch(() => console.log('Failed getting user data :('));
-	}, [auth]);
-
 	return {
-		get isAuthorized() {
-			return auth && auth.token;
-		},
-		get isAdmin() {
-			return user && user.role === 'admin';
-		},
-		get userId() {
-			return !auth ? null : auth.userId;
-		},
+		isAuthorized,
+		isAdmin,
+		user,
 		login,
 		logout,
 	};

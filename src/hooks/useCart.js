@@ -11,13 +11,12 @@ const useCart = () => {
 	 * @param {Object} product
 	 * @param {Number} count
 	 */
-	const setItemCount = (product, count) => {
-		const i = cart.findIndex(item => item.product.id === product.id);
-		if (i < 0) return;
-		if (count <= 0 || isNaN(count)) {
-			return setCart(removeItemAtIndex(cart, i));
-		}
-		setCart(replaceItemAtIndex(cart, i, { ...cart[i], count: count }));
+	const setItemCount = (id, count) => {
+		setCart(
+			cart
+				.map(item => (item.id === id ? { ...item, count } : item))
+				.filter(({ count }) => count > 0)
+		);
 	};
 	/**
 	 * @param {Object} product
@@ -32,7 +31,7 @@ const useCart = () => {
 	const addItem = id => {
 		const count = getItemCount(id);
 		if (count > 0) return setItemCount(id, count + 1);
-		setCart([...cart, createCartItem(id)]);
+		setCart([...cart, { id, count: 1 }]);
 	};
 
 	return {
@@ -40,16 +39,9 @@ const useCart = () => {
 		get count() {
 			return cart.reduce((total, item) => total + item.count, 0);
 		},
-		get totalPrice() {
-			return cart.reduce(
-				(total, item) => total + item.product.price * item.count,
-				0
-			);
-		},
 		addItem,
 		setItemCount,
 		getItemCount,
-		getItemTotal: product => getItemCount(product) * product.price,
 		empty: () => setCart([]),
 	};
 };

@@ -1,14 +1,11 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import CartSummary from '../components/CartSummary';
-import AuthRequired from '../components/AuthRequired';
+import CartDetails from '../components/CartDetails';
 
 const Cart = () => {
 	return (
 		<Layout>
-			<AuthRequired>
-				<CartSummary />
-			</AuthRequired>
+			<CartDetails />
 		</Layout>
 	);
 };

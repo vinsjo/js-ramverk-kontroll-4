@@ -1,14 +1,10 @@
 import React from 'react';
 import styles from './ProductImage.module.css';
 
-const ProductImage = ({ product }) => {
+const ProductImage = ({ image, title }) => {
 	return (
 		<div className={styles.background}>
-			<img
-				className={styles.img}
-				src={product.image}
-				alt={product.title}
-			/>
+			<img className={styles.img} src={image} alt={title} />
 		</div>
 	);
 };

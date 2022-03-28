@@ -1,6 +1,5 @@
-import Product from './Product';
+import ProductDetails from './ProductDetails';
 import ProductGrid from './ProductGrid';
 import ProductImage from './ProductImage';
-export default Product;
 
-export { ProductImage, ProductGrid };
+export { ProductDetails, ProductImage, ProductGrid };

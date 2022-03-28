@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import useCart from '../../hooks/useCart';
+import { useCart, useProducts } from '../../hooks';
 import { classNames, formatPrice } from '../../utils';
 import { Button } from '../elements';
 import Popup from '../elements/Popup';
 import CartItem from './CartItem';
-import styles from './CartSummary.module.css';
+import styles from './CartDetails.module.css';
 
 const CartSummary = () => {
 	const cart = useCart();
+	const { getProduct } = useProducts();
 	const [showPopup, setShowPopup] = useState(false);
+	const getTotal = () => {
+		return cart.items.reduce((acc, { id, count }) => {
+			const product = getProduct(id);
+			return !product ? acc : acc + product.price * count;
+		}, 0);
+	};
 
 	useEffect(() => {
 		if (!showPopup) return;
@@ -24,17 +31,19 @@ const CartSummary = () => {
 				{!cart.count ? (
 					<h4>Cart is empty</h4>
 				) : (
-					cart.items.map(({ product, count }) => (
-						<CartItem
-							key={product.id}
-							product={product}
-							count={count}
-							onCountChange={value =>
-								cart.setItemCount(product, value)
-							}
-							onDelete={() => cart.setItemCount(product, 0)}
-						/>
-					))
+					cart.items.map(({ id, count }) => {
+						return (
+							<CartItem
+								key={id}
+								productId={id}
+								count={count}
+								onCountChange={value =>
+									cart.setItemCount(id, value)
+								}
+								onDelete={() => cart.setItemCount(id, 0)}
+							/>
+						);
+					})
 				)}
 			</ul>
 			<div className={styles.total}>
@@ -42,8 +51,8 @@ const CartSummary = () => {
 					''
 				) : (
 					<>
-						<span>Total:</span>{' '}
-						<span>${formatPrice(cart.totalPrice)}</span>
+						<span>Total:</span>
+						<span>${formatPrice(getTotal())}</span>
 					</>
 				)}
 			</div>

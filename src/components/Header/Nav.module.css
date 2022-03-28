@@ -1,5 +1,4 @@
-.links {
-	list-style: none;
+.nav {
 	display: flex;
 	justify-content: center;
 	align-items: center;

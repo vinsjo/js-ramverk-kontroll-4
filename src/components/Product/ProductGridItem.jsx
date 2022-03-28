@@ -10,7 +10,7 @@ const ProductGridItem = ({ product, onAdd }) => {
 		<div className={styles.container}>
 			<Link className={styles.link} to={`/products/${product.id}`}>
 				<div className={classNames(styles.section, styles.img)}>
-					<ProductImage product={product} />
+					<ProductImage image={product.image} title={product.title} />
 				</div>
 				<h5 className={styles.title}>{product.title}</h5>
 			</Link>

@@ -6,22 +6,13 @@ const useProducts = () => {
 	const [products, setProducts] = useRecoilState(productsState);
 
 	const getProduct = id => {
-		return (
-			products.find(
-				product =>
-					(isStr(id) ? product.id.toString() : product.id) === id
-			) || null
+		return products.find(
+			product => id === (isStr(id) ? product.id.toString() : product.id)
 		);
 	};
-
-	const getProductPrice = id => {
-		const product = getProduct(id);
-		return !product ? 0 : product.price;
-	};
 	return {
-		get: () => products,
+		products,
 		getProduct,
-		getProductPrice,
 	};
 };
 

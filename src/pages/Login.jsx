@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../components/Layout';
 import LoginForm from '../components/LoginForm';
 import { Button } from '../components/elements';
-import useAuth from '../hooks/useAuth';
+import { useAuth } from '../hooks';
 
 const Login = () => {
 	const auth = useAuth();
