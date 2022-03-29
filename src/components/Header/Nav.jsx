@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import { useCart } from '../../hooks';
 import { NavLink } from '../elements';
-import UserContext from '../../context/UserContext';
 import styles from './Nav.module.css';
+import { useRecoilValue } from 'recoil';
+import userState from '../../stores/user/atom';
 
 const Nav = () => {
 	const cart = useCart();
-	const user = useContext(UserContext);
+	const user = useRecoilValue(userState);
 
 	return (
 		<nav className={styles.nav}>

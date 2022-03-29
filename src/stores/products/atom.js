@@ -9,14 +9,7 @@ const productsState = atom({
 		({ setSelf, resetSelf }) => {
 			axios
 				.get('https://k4backend.osuka.dev/products')
-				.then(res =>
-					setSelf(
-						res.data.map(product => ({
-							...product,
-							__id: uuidv4(),
-						}))
-					)
-				)
+				.then(res => setSelf(res.data))
 				.catch(e => {
 					console.error(e);
 					resetSelf();

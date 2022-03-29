@@ -1,5 +1,11 @@
-import { useState, useEffect } from 'react';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useCallback, useEffect } from 'react';
+import {
+	useRecoilCallback,
+	useRecoilState,
+	useResetRecoilState,
+	useSetRecoilState,
+} from 'recoil';
+import userState from '../stores/user/atom';
 import authState from '../stores/auth/atom';
 import axios from 'axios';
 import { isObj, isUndef } from 'x-is-type';
@@ -8,41 +14,56 @@ const useAuth = () => {
 	const [auth, setAuth] = useRecoilState(authState);
 	const resetAuth = useResetRecoilState(authState);
 
+	const setUser = useSetRecoilState(userState);
+	const resetUser = useResetRecoilState(userState);
+
 	const validAuth = auth => isObj(auth) && !isUndef(auth.token, auth.userId);
 
 	/**
 	 * @param {{username: String, password: string}} data
 	 */
-	const login = data => {
-		axios
-			.post('https://k4backend.osuka.dev/auth/login/', data)
-			.then(res =>
-				validAuth(res.data) ? setAuth(res.data) : resetAuth()
-			)
-			.catch(e => console.log(e.type));
-	};
-
-	const getUser = async () => {
+	const login = async data => {
 		try {
-			if (!validAuth(auth)) throw 'User is not authorized';
-			const res = await axios.get(
-				`https://k4backend.osuka.dev/users/${auth.userId}`
+			const res = await axios.post(
+				'https://k4backend.osuka.dev/auth/login/',
+				data
 			);
-			return res.data;
+			if (!validAuth(res.data)) throw 'Login failed';
+			setAuth(res.data);
 		} catch (e) {
 			console.log(e);
-			return null;
+			resetAuth();
 		}
 	};
-
 	const isAuthorized = () => validAuth(auth);
+
+	useEffect(() => {
+		const controller = new AbortController();
+		(async () => {
+			try {
+				const res = await axios.get(
+					`https://k4backend.osuka.dev/users/${auth.userId}`,
+					{ signal: controller.signal }
+				);
+				if (res.data.error) throw 'Failed getting user data';
+				const { password, ...user } = res.data;
+				setUser(user);
+			} catch (e) {
+				if (!axios.isCancel(e)) console.log(e);
+				resetUser();
+			}
+		})();
+		return () => controller.abort();
+	}, [auth.token, auth.userId]);
 
 	return {
 		...auth,
 		isAuthorized,
-		getUser,
 		login,
-		logout: () => resetAuth(),
+		logout: () => {
+			resetAuth();
+			resetUser();
+		},
 	};
 };
 

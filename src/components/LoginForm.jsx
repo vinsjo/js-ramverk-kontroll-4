@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
-import { Button } from './elements';
+import { Button, InputField } from './elements';
 import { isFn } from 'x-is-type';
+import styles from './LoginForm.module.css';
 
 const LoginForm = ({ onSubmit }) => {
-	const [userInput, setUserInput] = useState('');
-	const [pwInput, setPwInput] = useState('');
+	const [input, setInput] = useState({ username: '', password: '' });
 	const handleSubmit = e => {
 		e.preventDefault();
-		isFn(onSubmit) && onSubmit({ username: userInput, password: pwInput });
+		isFn(onSubmit) && onSubmit(input);
 	};
 	return (
-		<form onSubmit={handleSubmit}>
-			<input
-				type="text"
-				value={userInput}
-				onChange={({ target: { value } }) => setUserInput(value)}
+		<form onSubmit={handleSubmit} className={styles.form}>
+			<InputField
+				value={input.username}
+				placeholder="Username"
+				onChange={username => setInput({ ...input, username })}
 				required
 			/>
-			<input
+			<InputField
 				type="password"
-				value={pwInput}
-				onChange={({ target: { value } }) => setPwInput(value)}
+				value={input.password}
+				placeholder="Password"
+				onChange={password => setInput({ ...input, password })}
 				required
 			/>
-			<Button type="submit">Login</Button>
+			<Button type="submit" className={styles.btn}>
+				Login
+			</Button>
 		</form>
 	);
 };

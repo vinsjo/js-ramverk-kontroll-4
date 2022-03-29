@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import UserContext from '../../context/UserContext';
+import { useRecoilValue } from 'recoil';
+import userState from '../../stores/user/atom';
 import { isObj } from 'x-is-type';
 
 const AuthRequired = ({
@@ -9,7 +10,7 @@ const AuthRequired = ({
 	fallbackRoute = '/login',
 }) => {
 	const [accessDenied, setAccessDenied] = useState(null);
-	const user = useContext(UserContext);
+	const user = useRecoilValue(userState);
 
 	useEffect(() => {
 		setAccessDenied(

@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
+import userState from '../stores/user/atom';
 import LoginForm from '../components/LoginForm';
 import { Button } from '../components/elements';
 import { useAuth } from '../hooks';
-import UserContext from '../context/UserContext';
 
 const Login = () => {
 	const auth = useAuth();
-	const user = useContext(UserContext);
-	const handleSubmit = input => auth.login(input);
+	const user = useRecoilValue(userState);
 	return !user ? (
 		<>
 			<h1>You are not logged in 😫</h1>
-			<LoginForm onSubmit={handleSubmit} />
+			<LoginForm onSubmit={auth.login} />
 		</>
 	) : (
 		<>

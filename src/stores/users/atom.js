@@ -13,7 +13,7 @@ const usersState = atom({
 					setSelf(
 						res.data.map(userData => {
 							const { password, ...user } = userData;
-							return { ...user, __id: uuidv4() };
+							return user;
 						})
 					)
 				)

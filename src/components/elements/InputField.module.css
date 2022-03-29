@@ -1,0 +1,23 @@
+.input {
+	width: 100%;
+	max-width: 30ch;
+	font-family: inherit;
+	border: none;
+	border-radius: 3px;
+	font-weight: 500;
+	padding: 0.5em 1em;
+	border: 2px solid var(--color-light);
+	color: var(--main-color);
+	background-color: white;
+	outline: none;
+	transition: border-color 0.2s ease;
+}
+
+.input:focus {
+	border-color: var(--main-color);
+}
+
+.input:-webkit-autofill {
+	background-clip: text;
+	-webkit-background-clip: text;
+}
