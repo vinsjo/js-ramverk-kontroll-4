@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Button, InputField } from './elements';
+import { Button, InputField, PasswordField } from './elements';
 import { useAuth } from '../hooks';
 import styles from './LoginForm.module.css';
 
@@ -28,18 +28,18 @@ const LoginForm = () => {
 		<div>
 			<h2>Log In</h2>
 			<form onSubmit={handleSubmit} className={styles.form}>
-				{Object.keys(input).map(key => {
-					return (
-						<InputField
-							key={`input-${key}`}
-							value={input[key]}
-							placeholder={key}
-							dataKey={key}
-							onChange={handleInput}
-							type={key}
-						/>
-					);
-				})}
+				<InputField
+					value={input.username}
+					placeholder="username"
+					dataKey="username"
+					onChange={handleInput}
+				/>
+				<PasswordField
+					value={input.password}
+					placeholder="password"
+					dataKey="password"
+					onChange={handleInput}
+				/>
 				<Button type="submit" className={styles.btn}>
 					Login
 				</Button>

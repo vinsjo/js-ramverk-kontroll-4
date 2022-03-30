@@ -45,7 +45,7 @@ const useAuth = () => {
 				console.log('Getting user data');
 				const res = await api.getUser(auth.userId, controller);
 				if (res.data.error) throw 'Failed getting user data';
-				const { password, __v, ...user } = res.data;
+				const { __v, ...user } = res.data;
 				setUser(user);
 				console.log(
 					'Finished getting user data for user ' +

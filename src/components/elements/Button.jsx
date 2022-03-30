@@ -7,6 +7,7 @@ const Button = ({
 	children,
 	onClick,
 	value,
+	title,
 	variant = 'default',
 	type = 'button',
 	disabled = false,
@@ -18,6 +19,7 @@ const Button = ({
 			value={value || null}
 			onClick={e => isFn(onClick) && onClick(e)}
 			disabled={disabled}
+			title={title}
 		>
 			{children || 'Click me'}
 		</button>

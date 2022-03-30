@@ -2,9 +2,15 @@ import React, { useState, useCallback } from 'react';
 import { isFn } from 'x-is-type';
 import { userData } from '../utils';
 import styles from './UserForm.module.css';
-import { InputField, Button } from './elements';
+import { InputField, Button, PasswordField } from './elements';
 
-const UserForm = ({ onSubmit, data, submitText = 'Submit' }) => {
+const UserForm = ({
+	onSubmit,
+	data,
+	title,
+	submitText = 'Submit',
+	requireAll = true,
+}) => {
 	const [input, setInput] = useState(
 		userData.flatten(data || userData.template())
 	);
@@ -23,14 +29,23 @@ const UserForm = ({ onSubmit, data, submitText = 'Submit' }) => {
 
 	return (
 		<form onSubmit={handleSubmit} className={styles.form}>
+			{title && <h3>{title}</h3>}
 			<div className={styles['input-container']}>
 				{Object.keys(input).map(key => {
 					const id = `input-${key}`;
-					const type = ['password', 'email', 'number'].includes(key)
-						? key
-						: 'text';
 					return key === 'id' || key === 'role' ? (
 						''
+					) : key === 'password' ? (
+						<PasswordField
+							key={id}
+							id={id}
+							label={key}
+							value={input[key]}
+							placeholder={key}
+							dataKey={key}
+							onChange={handleInput}
+							required={requireAll}
+						/>
 					) : (
 						<InputField
 							key={id}
@@ -40,8 +55,8 @@ const UserForm = ({ onSubmit, data, submitText = 'Submit' }) => {
 							placeholder={key}
 							dataKey={key}
 							onChange={handleInput}
-							type={type}
-							required
+							type={key}
+							required={requireAll}
 						/>
 					);
 				})}

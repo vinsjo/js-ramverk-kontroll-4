@@ -1,3 +1,7 @@
+.input-container {
+	position: relative;
+}
+
 .input {
 	display: block;
 	width: 100%;

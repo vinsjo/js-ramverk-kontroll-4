@@ -19,7 +19,7 @@ const Register = () => {
 			});
 	};
 	return !user ? (
-		<UserForm onSubmit={handleSubmit} />
+		<UserForm onSubmit={handleSubmit} title="Create Account" />
 	) : (
 		<Navigate replace to="/profile" />
 	);

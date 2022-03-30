@@ -6,6 +6,7 @@ import styles from './InputField.module.css';
 const inputTypes = ['text', 'password', 'email'];
 
 const InputField = ({
+	children,
 	value,
 	id,
 	label,
@@ -28,7 +29,7 @@ const InputField = ({
 	}, [input]);
 
 	return (
-		<div className={styles.container}>
+		<div>
 			{label ? (
 				<label
 					htmlFor={id}
@@ -43,18 +44,21 @@ const InputField = ({
 			) : (
 				''
 			)}
-			<input
-				id={id}
-				className={classNames(styles.input, className)}
-				value={input}
-				type={inputTypes.includes(type) ? type : 'text'}
-				onChange={handleChange}
-				minLength={minLength}
-				maxLength={maxLength}
-				placeholder={placeholder}
-				required={required}
-				disabled={disabled}
-			/>
+			<div className={styles['input-container']}>
+				<input
+					id={id}
+					className={classNames(styles.input, className)}
+					value={input}
+					type={inputTypes.includes(type) ? type : 'text'}
+					onChange={handleChange}
+					minLength={minLength}
+					maxLength={maxLength}
+					placeholder={placeholder}
+					required={required}
+					disabled={disabled}
+				/>
+				{children}
+			</div>
 		</div>
 	);
 };
