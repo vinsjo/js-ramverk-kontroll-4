@@ -1,8 +1,5 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import cartState from '../stores/cart/atom';
-import { replaceItemAtIndex, removeItemAtIndex } from '../utils';
-
-const createCartItem = id => ({ id, count: 1 });
 
 const useCart = () => {
 	const [cart, setCart] = useRecoilState(cartState);

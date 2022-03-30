@@ -8,6 +8,7 @@ import {
 	Cart,
 	Login,
 	Admin,
+	Profile,
 	NotFound,
 } from './pages';
 
@@ -25,6 +26,7 @@ const App = () => {
 					<Route path="/cart" element={<Cart />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/admin" element={<Admin />} />
+					<Route path="/profile" element={<Profile />} />
 					<Route element={<NotFound />} />
 				</Routes>
 			</Layout>

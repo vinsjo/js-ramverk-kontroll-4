@@ -1,33 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Button, InputField } from './elements';
-import { isFn } from 'x-is-type';
+import { useAuth } from '../hooks';
 import styles from './LoginForm.module.css';
 
+const initialInput = { username: '', password: '' };
+
 const LoginForm = ({ onSubmit }) => {
-	const [input, setInput] = useState({ username: '', password: '' });
+	const auth = useAuth();
+	const [input, setInput] = useState(initialInput);
+	const resetInput = () => setInput({ ...initialInput });
+
 	const handleSubmit = e => {
 		e.preventDefault();
-		isFn(onSubmit) && onSubmit(input);
+		auth.login(input);
+		resetInput();
 	};
+
+	const handleInput = useCallback(
+		(value, dataKey) => {
+			setInput({ ...input, [dataKey]: value });
+		},
+		[input, setInput]
+	);
+
 	return (
-		<form onSubmit={handleSubmit} className={styles.form}>
-			<InputField
-				value={input.username}
-				placeholder="Username"
-				onChange={username => setInput({ ...input, username })}
-				required
-			/>
-			<InputField
-				type="password"
-				value={input.password}
-				placeholder="Password"
-				onChange={password => setInput({ ...input, password })}
-				required
-			/>
-			<Button type="submit" className={styles.btn}>
-				Login
-			</Button>
-		</form>
+		<div>
+			<h2>Log In</h2>
+			<form onSubmit={handleSubmit} className={styles.form}>
+				{Object.keys(input).map(key => {
+					return (
+						<InputField
+							key={`input-${key}`}
+							value={input[key]}
+							placeholder={key}
+							dataKey={key}
+							onChange={handleInput}
+							type={key === 'password' ? key : 'text'}
+						/>
+					);
+				})}
+				<Button type="submit" className={styles.btn}>
+					Login
+				</Button>
+			</form>
+		</div>
 	);
 };
 

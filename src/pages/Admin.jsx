@@ -1,6 +1,4 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import usersState from '../stores/users/atom';
 import AuthRequired from '../components/containers/AuthRequired';
 import AdminData from '../components/AdminData';
 

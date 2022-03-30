@@ -1,14 +1,12 @@
 import { atom } from 'recoil';
-import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
+import { getAllUsers } from '../../utils/api';
 
 const usersState = atom({
 	key: 'UsersState',
 	default: [],
 	effects: [
 		({ setSelf, resetSelf }) => {
-			axios
-				.get('https://k4backend.osuka.dev/users')
+			getAllUsers()
 				.then(res =>
 					setSelf(
 						res.data.map(userData => {

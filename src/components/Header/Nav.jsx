@@ -14,25 +14,21 @@ const Nav = () => {
 			<NavLink to="/products" title="Products Overview">
 				Products
 			</NavLink>
-			<NavLink to="/login" title="Account page">
-				{user ? 'Log out' : 'Log in'}
+			<NavLink to="/profile" title="Profile Page">
+				Profile
 			</NavLink>
-			{user && user.role === 'admin' ? (
-				<NavLink to="/admin" title="Admin Page">
-					Admin
+			{/* {user ? (
+				<NavLink to="/profile" title="Profile Page">
+					Profile
 				</NavLink>
 			) : (
-				<NavLink to="/cart" title="Shopping Cart">{`Cart${
-					!cart.count ? '' : `(${cart.count})`
-				}`}</NavLink>
-			)}
-			{/* <NavLink to="/admin" title="Admin Page">
-				Admin
-			</NavLink>
-
+				<NavLink to="/login" title="Account page">
+					Log in
+				</NavLink>
+			)} */}
 			<NavLink to="/cart" title="Shopping Cart">{`Cart${
 				!cart.count ? '' : `(${cart.count})`
-			}`}</NavLink> */}
+			}`}</NavLink>
 		</nav>
 	);
 };

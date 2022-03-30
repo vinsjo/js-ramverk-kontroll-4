@@ -17,6 +17,10 @@
 	border-color: var(--main-color);
 }
 
+.input::placeholder {
+	text-transform: capitalize;
+}
+
 .input:-webkit-autofill {
 	background-clip: text;
 	-webkit-background-clip: text;

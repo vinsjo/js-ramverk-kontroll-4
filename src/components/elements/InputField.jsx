@@ -11,13 +11,15 @@ const InputField = ({
 	required,
 	placeholder,
 	className,
+	dataKey,
 	type = 'text',
 }) => {
 	const [input, setInput] = useState(value || '');
 
-	const handleChange = ({ target: { value } }) => {
+	const handleChange = ({ target }) => {
+		const { value } = target;
 		setInput(value);
-		isFn(onChange) && onChange(value);
+		isFn(onChange) && onChange(value, dataKey);
 	};
 	return (
 		<input
