@@ -9,6 +9,7 @@ import {
 	Login,
 	Admin,
 	Profile,
+	Register,
 	NotFound,
 } from './pages';
 
@@ -27,6 +28,7 @@ const App = () => {
 					<Route path="/login" element={<Login />} />
 					<Route path="/admin" element={<Admin />} />
 					<Route path="/profile" element={<Profile />} />
+					<Route path="/register" element={<Register />} />
 					<Route element={<NotFound />} />
 				</Routes>
 			</Layout>

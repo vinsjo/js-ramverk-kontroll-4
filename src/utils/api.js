@@ -9,7 +9,7 @@ const connect = async (
 	controller = null,
 	method = 'get'
 ) => {
-	if (!isFn(axios[method])) return null;
+	// if (!isFn(axios[method])) return null;
 	try {
 		const opt = options || {};
 		if (controller && controller instanceof AbortController) {
@@ -18,6 +18,7 @@ const connect = async (
 		return axios[method](new URL(path, baseUrl), opt);
 	} catch (e) {
 		console.error(e);
+
 		return null;
 	}
 };
@@ -37,8 +38,7 @@ const makeRequester = method => {
 
 const GET = makeRequester('get');
 const POST = makeRequester('post');
-const DELETE = makeRequester('delete');
-const UPDATE = makeRequester('update');
+const PUT = makeRequester('put');
 
 /**
  * @param {{username: String, password: String}} data
@@ -65,11 +65,20 @@ const getAllUsers = controller => {
 };
 
 /**
- * @param {{email: String, username: String, password: String, name: {firstname: String, lastname: String}, address: {city: String, street: String, zipcode: String}, phone: String}} data
+ * @param {{email: String, username: String, password: String, name: {firstname: String, lastname: String}, address: {city: String, street: String, zipcode: String, number: Number}, phone: String}} data
  * @param {AbortController} [controller]
  */
 const addUser = (data, controller) => {
 	return POST('/users/', data, controller);
+};
+
+/**
+ * @param {{id: String | Number, email: String, username: String, password: String, name: {firstname: String, lastname: String}, address: {city: String, street: String, zipcode: String, number: Number}, phone: String}} data
+ * @param {AbortController} [controller]
+ */
+const updateUser = (data, controller) => {
+	console.log(data);
+	return PUT(`/users/${data.id}`, data, controller);
 };
 /**
  * @param {AbortController} [controller]
@@ -78,4 +87,30 @@ const getAllProducts = controller => {
 	return GET('/products/', {}, controller);
 };
 
-export { baseUrl, login, getUser, addUser, getAllUsers, getAllProducts };
+const userDataSchema = () => ({
+	email: '',
+	username: '',
+	password: '',
+	name: {
+		firstname: '',
+		lastname: '',
+	},
+	address: {
+		city: '',
+		street: '',
+		number: 0,
+		zipcode: '',
+	},
+	phone: '',
+});
+
+export {
+	baseUrl,
+	login,
+	getUser,
+	addUser,
+	updateUser,
+	getAllUsers,
+	getAllProducts,
+	userDataSchema,
+};

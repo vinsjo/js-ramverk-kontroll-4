@@ -1,11 +1,13 @@
 .input {
+	display: block;
 	width: 100%;
-	max-width: 30ch;
+	min-width: 30ch;
 	font-family: inherit;
 	border: none;
 	border-radius: 3px;
 	font-weight: 500;
 	padding: 0.5em 1em;
+	margin-top: 0.5em;
 	border: 2px solid var(--color-light);
 	color: var(--main-color);
 	background-color: white;
@@ -17,11 +19,26 @@
 	border-color: var(--main-color);
 }
 
-.input::placeholder {
+.input::placeholder,
+.label {
 	text-transform: capitalize;
+}
+
+.input:disabled {
+	border-color: var(--color-lighter);
 }
 
 .input:-webkit-autofill {
 	background-clip: text;
 	-webkit-background-clip: text;
+}
+
+.label.disabled {
+	color: var(--color-lighter);
+}
+
+.label.required::after {
+	content: '*';
+	color: rgba(255, 0, 0, 0.75);
+	padding-left: 0.25em;
 }

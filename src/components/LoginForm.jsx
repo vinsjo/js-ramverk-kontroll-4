@@ -5,7 +5,7 @@ import styles from './LoginForm.module.css';
 
 const initialInput = { username: '', password: '' };
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = () => {
 	const auth = useAuth();
 	const [input, setInput] = useState(initialInput);
 	const resetInput = () => setInput({ ...initialInput });

@@ -22,7 +22,8 @@ const useAuth = () => {
 	const login = async inputData => {
 		console.log('Logging in');
 		try {
-			const res = await api.login(inputData);
+			const { username, password } = inputData;
+			const res = await api.login({ username, password });
 			if (!validAuth(res.data)) throw 'Login failed';
 			setAuth(res.data);
 			console.log('Logged in as user with id ' + res.data.userId);

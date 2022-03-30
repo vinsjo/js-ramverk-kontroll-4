@@ -1,35 +1,27 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import UserForm from '../components/UserForm';
 import { Button } from '../components/elements';
-import { isNum, isObj, isStr } from 'x-is-type';
+import { updateUser } from '../utils/api';
 import useAuth from '../hooks/useAuth';
 import AuthRequired from '../components/containers/AuthRequired';
 import userState from '../stores/user/atom';
 
 const Profile = () => {
 	const auth = useAuth();
-	const user = useRecoilValue(userState);
+	const [user, setUser] = useRecoilState(userState);
 
-	const renderUser = () => {
-		function iterateObj(obj, baseKey = '') {
-			return Object.entries(obj).map(([key, value]) => {
-				if (isObj(value)) return iterateObj(value, key);
-				return isStr(value) || isNum(value) ? (
-					<p key={`${baseKey}${key}`}>
-						{key}: {value}
-					</p>
-				) : (
-					''
-				);
-			});
-		}
-		if (!user) return 'No User Data';
-		return iterateObj(user);
+	const handleUpdate = userData => {
+		updateUser(userData).then(res => setUser(res.data));
 	};
 
 	return (
 		<AuthRequired>
-			<div>{renderUser()}</div>
+			<UserForm
+				onSubmit={handleUpdate}
+				submitText="Update"
+				userData={user}
+			/>
 			<Button onClick={() => auth.logout()}>Log out</Button>
 		</AuthRequired>
 	);
