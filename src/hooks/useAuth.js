@@ -35,10 +35,13 @@ const useAuth = () => {
 	};
 
 	useEffect(() => {
+		if (!isAuthorized()) {
+			resetUser();
+			return;
+		}
 		const controller = new AbortController();
 		(async () => {
 			try {
-				if (!isAuthorized()) controller.abort();
 				console.log('Getting user data');
 				const res = await api.getUser(auth.userId, controller);
 				if (res.data.error) throw 'Failed getting user data';

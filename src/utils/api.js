@@ -43,7 +43,6 @@ const PUT = makeRequester('put');
 /**
  * @param {{username: String, password: String}} data
  * @param {AbortController} [controller]
- * @returns
  */
 const login = (data, controller) => {
 	return POST('/auth/login', data, controller);
@@ -86,23 +85,12 @@ const updateUser = (data, controller) => {
 const getAllProducts = controller => {
 	return GET('/products/', {}, controller);
 };
-
-const userDataSchema = () => ({
-	email: '',
-	username: '',
-	password: '',
-	name: {
-		firstname: '',
-		lastname: '',
-	},
-	address: {
-		city: '',
-		street: '',
-		number: 0,
-		zipcode: '',
-	},
-	phone: '',
-});
+/**
+ * @param {AbortController} [controller]
+ */
+const getAllCarts = controller => {
+	return GET('/carts/', {}, controller);
+};
 
 export {
 	baseUrl,
@@ -112,5 +100,5 @@ export {
 	updateUser,
 	getAllUsers,
 	getAllProducts,
-	userDataSchema,
+	getAllCarts,
 };

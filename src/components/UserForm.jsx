@@ -1,27 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { isFn } from 'x-is-type';
-import { userDataSchema } from '../utils/api';
+import { userData } from '../utils';
 import styles from './UserForm.module.css';
 import { InputField, Button } from './elements';
 
-const flattenUserData = userData => {
-	const { name, address, ...rest } = userData;
-	return { ...rest, ...name, ...address };
-};
-
-const unflattenUserData = userData => {
-	const { firstname, lastname, city, street, number, zipcode, ...rest } =
-		userData;
-	return {
-		...rest,
-		name: { firstname, lastname },
-		address: { city, street, number, zipcode },
-	};
-};
-
-const UserForm = ({ onSubmit, userData, submitText = 'Submit' }) => {
+const UserForm = ({ onSubmit, data, submitText = 'Submit' }) => {
 	const [input, setInput] = useState(
-		flattenUserData(userData || userDataSchema())
+		userData.flatten(data || userData.template())
 	);
 
 	const handleInput = useCallback(
@@ -33,17 +18,17 @@ const UserForm = ({ onSubmit, userData, submitText = 'Submit' }) => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		isFn(onSubmit) && onSubmit(unflattenUserData(input));
+		isFn(onSubmit) && onSubmit(userData.unflatten(input));
 	};
 
 	return (
 		<form onSubmit={handleSubmit} className={styles.form}>
 			<div className={styles['input-container']}>
 				{Object.keys(input).map(key => {
-					const id = `user-input-${key}`;
-
-					const type =
-						key === 'password' || key === 'email' ? key : 'text';
+					const id = `input-${key}`;
+					const type = ['password', 'email', 'number'].includes(key)
+						? key
+						: 'text';
 					return key === 'id' || key === 'role' ? (
 						''
 					) : (

@@ -10,18 +10,13 @@ import userState from '../stores/user/atom';
 const Profile = () => {
 	const auth = useAuth();
 	const [user, setUser] = useRecoilState(userState);
-
+	console.log(user);
 	const handleUpdate = userData => {
 		updateUser(userData).then(res => setUser(res.data));
 	};
-
 	return (
 		<AuthRequired>
-			<UserForm
-				onSubmit={handleUpdate}
-				submitText="Update"
-				userData={user}
-			/>
+			<UserForm onSubmit={handleUpdate} submitText="Update" data={user} />
 			<Button onClick={() => auth.logout()}>Log out</Button>
 		</AuthRequired>
 	);

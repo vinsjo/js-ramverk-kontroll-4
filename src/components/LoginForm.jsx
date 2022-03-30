@@ -12,6 +12,7 @@ const LoginForm = () => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
+		console.log(input);
 		auth.login(input);
 		resetInput();
 	};
@@ -35,7 +36,7 @@ const LoginForm = () => {
 							placeholder={key}
 							dataKey={key}
 							onChange={handleInput}
-							type={key === 'password' ? key : 'text'}
+							type={key}
 						/>
 					);
 				})}

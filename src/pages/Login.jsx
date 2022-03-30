@@ -2,8 +2,6 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import userState from '../stores/user/atom';
 import LoginForm from '../components/LoginForm';
-import { Button } from '../components/elements';
-import { useAuth } from '../hooks';
 import { Navigate } from 'react-router-dom';
 
 const Login = () => {
@@ -12,6 +10,8 @@ const Login = () => {
 		<>
 			<LoginForm />
 		</>
+	) : user.role === 'admin' ? (
+		<Navigate replace to="/admin" />
 	) : (
 		<Navigate replace to="/profile" />
 	);

@@ -10,7 +10,7 @@ const usersState = atom({
 				.then(res =>
 					setSelf(
 						res.data.map(userData => {
-							const { password, ...user } = userData;
+							const { password, __v, ...user } = userData;
 							return user;
 						})
 					)

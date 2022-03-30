@@ -26,9 +26,15 @@ const Nav = () => {
 					Log in
 				</NavLink>
 			)} */}
-			<NavLink to="/cart" title="Shopping Cart">{`Cart${
-				!cart.count ? '' : `(${cart.count})`
-			}`}</NavLink>
+			{user && user.role === 'admin' ? (
+				<NavLink to="/admin" title="Admin Page">
+					Admin
+				</NavLink>
+			) : (
+				<NavLink to="/cart" title="Shopping Cart">{`Cart${
+					!cart.count ? '' : `(${cart.count})`
+				}`}</NavLink>
+			)}
 		</nav>
 	);
 };
