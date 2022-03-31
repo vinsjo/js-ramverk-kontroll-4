@@ -92,6 +92,10 @@ const getAllCarts = controller => {
 	return GET('/carts/', {}, controller);
 };
 
+const getAllCategories = controller => {
+	return GET('/products/categories', {}, controller);
+};
+
 export {
 	baseUrl,
 	login,
@@ -101,4 +105,5 @@ export {
 	getAllUsers,
 	getAllProducts,
 	getAllCarts,
+	getAllCategories,
 };

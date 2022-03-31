@@ -1,8 +1,5 @@
 import React from 'react';
-import { ProductGrid } from '../components/Product';
-
-const Products = () => {
-	return <ProductGrid />;
-};
+import { Outlet } from 'react-router-dom';
+const Products = () => <Outlet />;
 
 export default Products;

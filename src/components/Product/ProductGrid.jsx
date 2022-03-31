@@ -1,20 +1,27 @@
 import React from 'react';
-import { useProducts, useCart } from '../../hooks';
+import { useRecoilValue } from 'recoil';
+import filteredProductsState from '../../stores/filter/filteredProducts';
+import { useCart } from '../../hooks';
 import ProductGridItem from './ProductGridItem';
 import styles from './ProductGrid.module.css';
+import ProductFilter from './ProductFilter';
 
 const ProductGrid = () => {
 	const cart = useCart();
-	const { products } = useProducts();
+	const products = useRecoilValue(filteredProductsState);
+
 	return (
-		<div className={styles.grid}>
-			{products.map(product => (
-				<ProductGridItem
-					key={product.id}
-					product={product}
-					onAdd={() => cart.addItem(product.id)}
-				/>
-			))}
+		<div className={styles.container}>
+			<ProductFilter />
+			<div className={styles.grid}>
+				{products.map(product => (
+					<ProductGridItem
+						key={product.id}
+						product={product}
+						onAdd={() => cart.addItem(product.id)}
+					/>
+				))}
+			</div>
 		</div>
 	);
 };

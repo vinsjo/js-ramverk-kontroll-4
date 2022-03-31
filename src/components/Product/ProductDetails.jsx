@@ -1,14 +1,20 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { formatPrice } from '../../utils';
-import { useCart } from '../../hooks';
+import { useCart, useProducts } from '../../hooks';
 import { Button } from '../elements';
 import ProductImage from './ProductImage';
 import styles from './ProductDetails.module.css';
 
-const ProductDetails = ({ product }) => {
+const ProductDetails = () => {
 	const cart = useCart();
+	const { productId } = useParams();
+	const { getProduct } = useProducts();
+	const product = getProduct(productId);
 
-	return (
+	return !product ? (
+		'Product not found :('
+	) : (
 		<div className={styles.container}>
 			<div className={styles['img-container']}>
 				<ProductImage image={product.image} title={product.title} />

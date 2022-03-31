@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/containers/Layout';
+import { ProductDetails, ProductGrid } from './components/Product';
 import {
 	Home,
 	Products,
@@ -16,22 +17,25 @@ import {
 const App = () => {
 	return (
 		<BrowserRouter>
-			<Layout>
-				<Routes>
+			<Routes>
+				<Route element={<Layout />}>
 					<Route index element={<Home />} />
-					<Route path="/products" element={<Products />} />
+					<Route path="products" element={<Products />}>
+						<Route path=":productId" element={<ProductDetails />} />
+						<Route path="" element={<ProductGrid />} />
+					</Route>
 					<Route
-						path="/products/:productId"
+						path="products/:productId"
 						element={<SingleProduct />}
 					/>
-					<Route path="/cart" element={<Cart />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/admin" element={<Admin />} />
-					<Route path="/profile" element={<Profile />} />
-					<Route path="/register" element={<Register />} />
+					<Route path="cart" element={<Cart />} />
+					<Route path="login" element={<Login />} />
+					<Route path="admin" element={<Admin />} />
+					<Route path="profile" element={<Profile />} />
+					<Route path="register" element={<Register />} />
 					<Route element={<NotFound />} />
-				</Routes>
-			</Layout>
+				</Route>
+			</Routes>
 		</BrowserRouter>
 	);
 };

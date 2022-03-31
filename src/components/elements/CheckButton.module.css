@@ -1,0 +1,27 @@
+.btn {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: nowrap;
+	gap: 0.5rem;
+	opacity: 0.5;
+	padding: 0.5rem;
+	background: transparent;
+	text-transform: capitalize;
+	font-size: 0.8rem;
+}
+
+.icon-container {
+	aspect-ratio: 1;
+	width: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.icon-container svg {
+	height: 100%;
+	width: auto;
+}
+.btn.checked {
+	opacity: 1;
+}

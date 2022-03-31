@@ -25,6 +25,7 @@
 }
 .section.img {
 	aspect-ratio: 1;
+	max-width: 100%;
 }
 .section.bottom {
 	display: flex;

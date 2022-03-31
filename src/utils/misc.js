@@ -39,4 +39,15 @@ const removeItemAtIndex = (arr, index) => {
 	return [...arr.slice(0, index), ...arr.slice(index + 1)];
 };
 
-export { formatPrice, classNames, replaceItemAtIndex, removeItemAtIndex };
+const toggleArrayItem = (arr, item) => {
+	const i = arr.indexOf(item);
+	return i < 0 ? [...arr, item] : removeItemAtIndex(arr, i);
+};
+
+export {
+	formatPrice,
+	classNames,
+	replaceItemAtIndex,
+	removeItemAtIndex,
+	toggleArrayItem,
+};
