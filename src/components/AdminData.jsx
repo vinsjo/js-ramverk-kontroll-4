@@ -31,7 +31,7 @@ const AdminData = () => {
 	function listFromObj(obj, baseKey) {
 		const { id, ...rest } = obj;
 		return (
-			<>
+			<div key={baseKey}>
 				{id ? <h3 className={styles['list-title']}>{id}:</h3> : ''}
 				<ul className={styles.list}>
 					{Object.entries(rest).map(([key, value]) => {
@@ -50,7 +50,7 @@ const AdminData = () => {
 						);
 					})}
 				</ul>
-			</>
+			</div>
 		);
 	}
 	return (

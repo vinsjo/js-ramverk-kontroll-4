@@ -7,7 +7,6 @@ const filteredProductsState = selector({
 	get: ({ get }) => {
 		const products = get(productsState);
 		const filter = get(filterState);
-		console.log('filter: ', filter.cat);
 		return !filter.cat.length
 			? products
 			: products.filter(product => filter.cat.includes(product.category));

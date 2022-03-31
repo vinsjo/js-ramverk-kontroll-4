@@ -76,7 +76,6 @@ const addUser = (data, controller) => {
  * @param {AbortController} [controller]
  */
 const updateUser = (data, controller) => {
-	console.log(data);
 	return PUT(`/users/${data.id}`, data, controller);
 };
 /**
