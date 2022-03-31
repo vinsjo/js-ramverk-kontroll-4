@@ -5,10 +5,11 @@
 	flex-wrap: nowrap;
 	gap: 0.5rem;
 	opacity: 0.5;
-	padding: 0.5rem;
+	padding: 0 0.5rem;
 	background: transparent;
 	text-transform: capitalize;
 	font-size: 0.8rem;
+	transition: opacity 0.2s ease;
 }
 
 .icon-container {
@@ -23,5 +24,11 @@
 	width: auto;
 }
 .btn.checked {
-	opacity: 1;
+	opacity: 0.75;
+}
+
+@media (hover: hover) {
+	.btn:hover {
+		opacity: 1;
+	}
 }
