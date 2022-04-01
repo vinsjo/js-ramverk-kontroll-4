@@ -1,11 +1,13 @@
 .btn {
+	width: auto;
+	min-width: 20ch;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: nowrap;
 	gap: 0.5rem;
 	opacity: 0.5;
-	padding: 0 0.5rem;
+	padding: 0;
 	background: transparent;
 	text-transform: capitalize;
 	font-size: 0.8rem;

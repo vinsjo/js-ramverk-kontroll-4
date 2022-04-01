@@ -4,7 +4,7 @@ import {
 	IoIosCheckmarkCircleOutline,
 	IoIosRadioButtonOff,
 } from 'react-icons/io';
-import { classNames } from '../../utils';
+import { classNames } from '../../../utils';
 import styles from './CheckButton.module.css';
 
 const CheckButton = ({

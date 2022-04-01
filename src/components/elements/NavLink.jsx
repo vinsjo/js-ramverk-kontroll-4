@@ -1,14 +1,21 @@
 import React from 'react';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import styles from './NavLink.module.css';
+import { classNames } from '../../utils';
+import { isFn } from 'x-is-type';
 
-const NavLink = ({ to, title, children }) => {
+const NavLink = ({ className, onClick, to, title, children }) => {
 	return (
 		<RouterNavLink
 			to={to}
 			title={title}
+			onClick={() => isFn(onClick) && onClick()}
 			className={({ isActive }) =>
-				`${styles.link} ${isActive ? styles.active : ''}`
+				classNames(
+					styles.link,
+					isActive ? styles.active : null,
+					className
+				)
 			}
 		>
 			{children}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { isFn } from 'x-is-type';
-import { classNames } from '../../utils';
+import { classNames } from '../../../utils';
 import styles from './Button.module.css';
 const Button = ({
 	className,

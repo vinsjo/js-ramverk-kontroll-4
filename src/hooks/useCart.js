@@ -1,8 +1,9 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import cartState from '../stores/cart/atom';
 
 const useCart = () => {
 	const [cart, setCart] = useRecoilState(cartState);
+	const resetCart = useResetRecoilState(cartState);
 
 	/**
 	 * @param {Object} product
@@ -39,7 +40,7 @@ const useCart = () => {
 		addItem,
 		setItemCount,
 		getItemCount,
-		empty: () => setCart([]),
+		empty: () => resetCart(),
 	};
 };
 

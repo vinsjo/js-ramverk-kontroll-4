@@ -12,7 +12,7 @@ const ProductFilter = () => {
 
 	return (
 		<div className={styles.container}>
-			<h5>Filter by category:</h5>
+			<h5 className={styles.title}>Filter by category:</h5>
 			<div className={styles['btn-container']}>
 				{categories.map(cat => {
 					const id = `category-${cat}`;
@@ -29,23 +29,6 @@ const ProductFilter = () => {
 						>
 							{cat}
 						</CheckButton>
-						// <div key={id} className={styles['check-container']}>
-						// 	<label className={styles.label} htmlFor={id}>
-						// 		{cat}
-						// 	</label>
-						// 	<input
-						// 		className={styles.checkbox}
-						// 		type="checkbox"
-						// 		id={id}
-						// 		checked={filter.cat.includes(cat)}
-						// 		onChange={() => {
-						// 			setFilter({
-						// 				...filter,
-						// 				cat: toggleArrayItem(filter.cat, cat),
-						// 			});
-						// 		}}
-						// 	/>
-						// </div>
 					);
 				})}
 			</div>

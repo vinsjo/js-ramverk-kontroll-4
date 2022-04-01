@@ -9,7 +9,9 @@ import styles from './CartItem.module.css';
 const CartItem = ({ productId, count, onCountChange, onDelete }) => {
 	const { getProduct } = useProducts();
 	const product = getProduct(productId);
-	return (
+	return !product ? (
+		'ERROR: Product not found'
+	) : (
 		<li className={styles.item}>
 			<Button className={styles.delete} onClick={onDelete} variant="icon">
 				<IoMdClose />
@@ -23,7 +25,7 @@ const CartItem = ({ productId, count, onCountChange, onDelete }) => {
 					{product.title}
 				</Link>
 				<p className={styles.price}>
-					${formatPrice(count * product.price)}
+					${formatPrice(product.price * count)}
 				</p>
 			</div>
 			<NumberInput

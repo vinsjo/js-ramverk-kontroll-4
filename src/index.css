@@ -5,6 +5,8 @@
 	--main-color: black;
 	--color-light: rgb(150, 150, 150);
 	--color-lighter: rgb(200, 200, 200);
+
+	--mobile-break: 500px;
 }
 
 * {

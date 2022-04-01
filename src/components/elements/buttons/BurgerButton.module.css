@@ -1,0 +1,31 @@
+.btn {
+	height: 2rem;
+	width: fit-content;
+	position: relative;
+	-webkit-touch-callout: none; /* Safari */
+	-webkit-user-select: none; /* Chrome */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none;
+}
+
+.btn svg {
+	height: 100%;
+	width: auto;
+	overflow: visible;
+}
+
+.btn rect {
+	transform-origin: center;
+	transition: transform 0.15s ease-in-out;
+}
+
+.btn.open rect:nth-child(1) {
+	transform: rotate(-135deg) translateY(31.25%);
+}
+.btn.open rect:nth-child(2) {
+	transform: rotate(-135deg);
+}
+.btn.open rect:nth-child(3) {
+	transform: rotate(135deg) translateY(-31.25%);
+}
