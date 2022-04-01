@@ -22,9 +22,6 @@
 	z-index: 5;
 }
 
-.link {
-	border-top: 2px solid var(--color-lighter);
-}
 
 .nav.open {
 	transform: translateX(0);
@@ -40,8 +37,5 @@
 		transform: none;
 		flex-direction: row;
 		padding: 0;
-	}
-	.link {
-		border: none;
 	}
 }
