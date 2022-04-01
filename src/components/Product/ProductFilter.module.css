@@ -10,16 +10,16 @@
 
 .btn-container {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(20ch, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
 	gap: 0.5rem;
 	align-items: center;
 	justify-items: start;
-        width: 100%;
-	max-width: 50ch;
+        width: 50ch;
+	max-width: 100%
 }
 
 @media only screen and (min-width: 600px) {
 	.btn-container {
-		max-width: 100%;
+		width: 40ch;
 	}
 }
