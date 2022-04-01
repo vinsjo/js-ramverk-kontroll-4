@@ -31,7 +31,7 @@
 
 .btn.icon {
 	padding: 0;
-	color: inherit;
+	color: var(--main-color);
 	background-color: transparent;
 }
 
