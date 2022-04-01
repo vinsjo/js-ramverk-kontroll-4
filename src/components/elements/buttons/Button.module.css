@@ -5,6 +5,8 @@
 
 .btn {
 	font-family: inherit;
+        color: var(--main-color);
+        transition-property: color;
 	border: none;
 	border-radius: 3px;
 	font-weight: 500;
@@ -31,11 +33,10 @@
 
 .btn.icon {
 	padding: 0;
-	color: var(--main-color);
 	background-color: transparent;
 }
 
-.btn.icon svg {
+.btn svg {
 	fill: var(--main-color);
 	transition-property: fill;
 }
@@ -60,6 +61,9 @@
 }
 
 @media (hover: hover) {
+.btn:not(:disabled):hover {
+ color: var(--color-light);
+}
 	.btn.default:not(:disabled):hover {
 		border-color: var(--color-light);
 		color: var(--color-light);
@@ -67,7 +71,7 @@
 	.btn.filled:not(:disabled):hover {
 		background-color: var(--color-light);
 	}
-	.btn.icon:not(:disabled):hover svg {
+	.btn:not(:disabled):hover svg {
 		fill: var(--color-light);
 	}
 }
