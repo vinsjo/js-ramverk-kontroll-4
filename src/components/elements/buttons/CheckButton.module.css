@@ -14,15 +14,8 @@
 	transition: opacity 0.2s ease;
 }
 
-.icon-container {
-	aspect-ratio: 1;
-	width: 2rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
 .icon-container svg {
-	height: 100%;
+	height: 2rem;
 	width: auto;
 }
 .btn.checked {
