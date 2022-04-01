@@ -10,7 +10,7 @@
 
 .btn-container {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(25ch, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(20ch, 1fr));
 	gap: 0.5rem;
 	align-items: center;
 	justify-items: start;
