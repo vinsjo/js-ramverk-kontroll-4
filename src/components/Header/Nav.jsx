@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useCart } from '../../hooks';
 import { NavLink } from '../elements';
 import styles from './Nav.module.css';
@@ -13,6 +14,9 @@ const Nav = () => {
 
 	const [openBurger, setOpenBurger] = useState(false);
 
+	const { pathname } = useLocation();
+	useEffect(() => setOpenBurger(false), [pathname]);
+
 	return (
 		<div className={styles.container}>
 			<nav
@@ -25,7 +29,6 @@ const Nav = () => {
 					className={styles.link}
 					to="/products"
 					title="Products Overview"
-					onClick={() => setOpenBurger(false)}
 				>
 					Products
 				</NavLink>
@@ -33,7 +36,6 @@ const Nav = () => {
 					className={styles.link}
 					to="/profile"
 					title="Profile Page"
-					onClick={() => setOpenBurger(false)}
 				>
 					Profile
 				</NavLink>
@@ -43,7 +45,6 @@ const Nav = () => {
 						className={styles.link}
 						to="/admin"
 						title="Admin Page"
-						onClick={() => setOpenBurger(false)}
 					>
 						Admin
 					</NavLink>
@@ -52,7 +53,6 @@ const Nav = () => {
 						className={styles.link}
 						to="/cart"
 						title="Shopping Cart"
-						onClick={() => setOpenBurger(false)}
 					>{`Cart${!cart.count ? '' : `(${cart.count})`}`}</NavLink>
 				)}
 			</nav>
