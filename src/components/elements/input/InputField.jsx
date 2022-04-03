@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isFn, isNum } from 'x-is-type';
-import { classNames } from '../../utils';
+import { classNames } from '../../../utils';
 import styles from './InputField.module.css';
 
 const inputTypes = ['text', 'password', 'email'];
@@ -30,7 +30,7 @@ const InputField = ({
 	}, [input]);
 
 	return (
-		<div className={classNames(containerClassName)}>
+		<div className={classNames(styles.container, containerClassName)}>
 			{label ? (
 				<label
 					htmlFor={id}

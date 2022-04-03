@@ -12,7 +12,6 @@ const LoginForm = () => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		console.log(input);
 		auth.login(input);
 		resetInput();
 	};

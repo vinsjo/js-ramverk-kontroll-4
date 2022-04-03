@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import InputField from './InputField';
-import Button from './buttons/Button';
+import Button from '../buttons/Button';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
-import { classNames } from '../../utils';
+import { classNames } from '../../../utils';
 import styles from './PasswordField.module.css';
 
 const PasswordField = ({

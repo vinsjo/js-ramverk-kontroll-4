@@ -18,10 +18,12 @@
 
 html {
 	font-size: 1rem;
+	width: 100vw;
 }
 
 body {
 	font-family: var(--main-font);
+	width: 100%;
 }
 
 a {

@@ -1,12 +1,16 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { InputField, Button } from '../elements';
+import { InputField, Button, Select, TextArea } from '../elements';
 import { replaceItemAtIndex } from '../../utils';
-import styles from './ProductsForm.module.css';
+
 import { useProducts } from '../../hooks';
+import { useRecoilValue } from 'recoil';
+import categoriesState from '../../stores/categories/atom';
+import styles from './ProductsForm.module.css';
 
 const ProductsForm = () => {
 	const [updated, setUpdated] = useState([]);
 	const { products, updateProduct, deleteProduct } = useProducts();
+	const categories = useRecoilValue(categoriesState);
 
 	const isUpdated = useCallback(
 		id => {
@@ -70,34 +74,42 @@ const ProductsForm = () => {
 						key={id}
 						onSubmit={e => handleUpdateSubmit(e, product.id)}
 					>
-						{Object.entries(data).map(([key, value]) => {
-							if (key === 'id') {
-								return (
-									<h4
-										key={`${id}-${key}`}
-										className={styles.title}
-									>
-										ID: {value}
-									</h4>
-								);
+						<h4 className={styles.title}>ID: {data.id}</h4>
+						{['title', 'price'].map(key => (
+							<InputField
+								key={`${id}-${key}`}
+								id={`${id}-${key}`}
+								className={styles.input}
+								containerClassName={styles['input-container']}
+								value={data[key]}
+								label={key}
+								placeholder={key}
+								onChange={value =>
+									handleChange(product, key, value)
+								}
+							/>
+						))}
+						<TextArea
+							value={data.description}
+							id={`${id}-description`}
+							containerClassName={styles['input-container']}
+							label="description"
+							placeholder="description"
+							onChange={value =>
+								handleChange(product, 'description', value)
 							}
-							const onChange = input => {
-								handleChange(product, key, input);
-							};
-							return (
-								<InputField
-									className={styles.input}
-									containerClassName={
-										styles['input-container']
-									}
-									key={`${id}-${key}`}
-									value={value}
-									label={key}
-									placeholder={key}
-									onChange={onChange}
-								/>
-							);
-						})}
+						/>
+						<Select
+							containerClassName={styles['input-container']}
+							label="category"
+							id={`${id}-category`}
+							options={categories}
+							value={data.category}
+							onChange={value =>
+								handleChange(product, 'category', value)
+							}
+						/>
+
 						<div className={styles['btn-container']}>
 							<Button
 								type="button"
