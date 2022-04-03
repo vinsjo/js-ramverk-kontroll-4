@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { Button, InputField, PasswordField } from './elements';
-import { useAuth } from '../hooks';
+import { Button, InputField, PasswordField } from '../elements';
+import { useAuth } from '../../hooks';
 import styles from './LoginForm.module.css';
 
 const initialInput = { username: '', password: '' };

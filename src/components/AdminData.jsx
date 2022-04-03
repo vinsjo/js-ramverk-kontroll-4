@@ -4,6 +4,7 @@ import productsState from '../stores/products/atom';
 import styles from './AdminData.module.css';
 import { isObj } from 'x-is-type';
 import { getAllUsers } from '../utils/api';
+import TableForm from './forms/TableForm';
 
 const AdminData = () => {
 	const [users, setUsers] = useState([]);
@@ -36,16 +37,20 @@ const AdminData = () => {
 				<ul className={styles.list}>
 					{Object.entries(rest).map(([key, value]) => {
 						const mapKey = `${baseKey}-${key}`;
-						return isObj(value) ? (
-							listFromObj({ ...value, id: key }, mapKey)
-						) : (
+						return (
 							<li key={mapKey} className={styles.item}>
-								<p>
-									<span className={styles.key}>{key}:</span>{' '}
-									<span className={styles.value}>
-										{value}
-									</span>
-								</p>
+								{isObj(value) ? (
+									listFromObj({ ...value, id: key }, mapKey)
+								) : (
+									<p>
+										<span className={styles.key}>
+											{key}:
+										</span>{' '}
+										<span className={styles.value}>
+											{value}
+										</span>
+									</p>
+								)}
 							</li>
 						);
 					})}
@@ -55,7 +60,24 @@ const AdminData = () => {
 	}
 	return (
 		<div>
-			<h2>Admin Stuff</h2>
+			<TableForm data={products} />
+			{/* <h2>Admin Stuff</h2>
+
+			<h3>Products:</h3>
+			{!products || !products.length ? (
+				'Loading Products...'
+			) : (
+				<ul className={styles.list}>
+					{products.map(product => {
+						const key = `product-${product.id}`;
+						return (
+							<li key={key} className={styles.item}>
+								{listFromObj(product, key)}
+							</li>
+						);
+					})}
+				</ul>
+			)}
 			<h3>Users:</h3>
 			{!users || !users.length ? (
 				'Loading Users...'
@@ -78,22 +100,7 @@ const AdminData = () => {
 							);
 						})}
 				</ul>
-			)}
-			<h3>Products:</h3>
-			{!products || !products.length ? (
-				'Loading Products...'
-			) : (
-				<ul className={styles.list}>
-					{products.map(product => {
-						const key = `product-${product.id}`;
-						return (
-							<li key={key} className={styles.item}>
-								{listFromObj(product, key)}
-							</li>
-						);
-					})}
-				</ul>
-			)}
+			)} */}
 		</div>
 	);
 };

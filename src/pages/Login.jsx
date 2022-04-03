@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import userState from '../stores/user/atom';
 import { Navigate } from 'react-router-dom';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/forms/LoginForm';
 
 const Login = () => {
 	const user = useRecoilValue(userState);

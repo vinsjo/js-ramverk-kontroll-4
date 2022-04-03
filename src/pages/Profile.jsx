@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import UserForm from '../components/UserForm';
+import UserForm from '../components/forms/UserForm';
 import Avatar from 'boring-avatars';
 import { Button } from '../components/elements';
 import { updateUser } from '../utils/api';
 import { useAuth } from '../hooks';
 import AuthRequired from '../components/containers/AuthRequired';
 import userState from '../stores/user/atom';
-import { userData } from '../utils';
-import { isObj } from 'x-is-type';
 
 const Profile = () => {
 	const auth = useAuth();

@@ -5,7 +5,6 @@ import { ProductDetails, ProductGrid } from './components/Product';
 import {
 	Home,
 	Products,
-	SingleProduct,
 	Cart,
 	Login,
 	Admin,
@@ -24,10 +23,6 @@ const App = () => {
 						<Route path=":productId" element={<ProductDetails />} />
 						<Route path="" element={<ProductGrid />} />
 					</Route>
-					<Route
-						path="products/:productId"
-						element={<SingleProduct />}
-					/>
 					<Route path="cart" element={<Cart />} />
 					<Route path="login" element={<Login />} />
 					<Route path="admin" element={<Admin />} />

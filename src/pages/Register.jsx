@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import userState from '../stores/user/atom';
 import { addUser } from '../utils/api';
 import { useAuth } from '../hooks';
-import UserForm from '../components/UserForm';
+import UserForm from '../components/forms/UserForm';
 import { Navigate } from 'react-router-dom';
 
 const Register = () => {

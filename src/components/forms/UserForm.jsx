@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { isFn } from 'x-is-type';
-import { userData } from '../utils';
+import { userData } from '../../utils';
 import styles from './UserForm.module.css';
-import { InputField, Button, PasswordField } from './elements';
+import { InputField, Button, PasswordField } from '../elements';
 
 const UserForm = ({
 	onSubmit,
