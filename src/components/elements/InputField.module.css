@@ -12,6 +12,7 @@
 	margin-top: 0.5em;
 	outline: none;
 	border: none;
+	border-radius: 0;
 	border-bottom: 2px solid var(--color-light);
 	color: var(--main-color);
 	background-color: white;

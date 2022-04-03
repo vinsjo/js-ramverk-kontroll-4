@@ -15,6 +15,7 @@ const InputField = ({
 	maxLength,
 	placeholder,
 	className,
+	containerClassName,
 	dataKey,
 	required = false,
 	disabled = false,
@@ -29,7 +30,7 @@ const InputField = ({
 	}, [input]);
 
 	return (
-		<div>
+		<div className={classNames(containerClassName)}>
 			{label ? (
 				<label
 					htmlFor={id}

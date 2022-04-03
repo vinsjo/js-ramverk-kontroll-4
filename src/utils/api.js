@@ -39,6 +39,7 @@ const makeRequester = method => {
 const GET = makeRequester('get');
 const POST = makeRequester('post');
 const PUT = makeRequester('put');
+const DELETE = makeRequester('delete');
 
 /**
  * @param {{username: String, password: String}} data
@@ -78,6 +79,14 @@ const addUser = (data, controller) => {
 const updateUser = (data, controller) => {
 	return PUT(`/users/${data.id}`, data, controller);
 };
+
+const updateProduct = (data, controller) => {
+	return PUT(`/products/${data.id}`, data, controller);
+};
+
+const deleteProduct = id => {
+	return DELETE(`/products/${id}`);
+};
 /**
  * @param {AbortController} [controller]
  */
@@ -101,6 +110,8 @@ export {
 	getUser,
 	addUser,
 	updateUser,
+	updateProduct,
+	deleteProduct,
 	getAllUsers,
 	getAllProducts,
 	getAllCarts,

@@ -1,28 +1,8 @@
-.list {
-	list-style: none;
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
-
-.list-title {
-	padding: 0.5rem 0;
-}
-
-.item .list .list-title {
-	font-size: inherit;
-	font-weight: 600;
-}
-
-.item .list,
-.item {
-	padding: 0 0.5em;
-}
-
-.item .list {
-	gap: 0.5rem;
-}
-
-.key {
-	font-weight: 500;
+.cart-grid,
+.user-grid {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
+	place-items: center;
+	gap: 2rem;
 }

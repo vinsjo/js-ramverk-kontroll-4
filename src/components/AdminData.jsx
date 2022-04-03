@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import productsState from '../stores/products/atom';
-import styles from './AdminData.module.css';
+
 import { isObj } from 'x-is-type';
-import { getAllUsers } from '../utils/api';
-import TableForm from './forms/TableForm';
+import { getAllUsers, getAllCarts } from '../utils/api';
+import ProductsForm from './forms/ProductsForm';
+import styles from './AdminData.module.css';
 
 const AdminData = () => {
 	const [users, setUsers] = useState([]);
-	const products = useRecoilValue(productsState);
+	const [carts, setCarts] = useState([]);
 
 	useEffect(() => {
 		const controller = new AbortController();
@@ -28,39 +29,73 @@ const AdminData = () => {
 			});
 		return () => controller.abort();
 	}, []);
-
-	function listFromObj(obj, baseKey) {
-		const { id, ...rest } = obj;
-		return (
-			<div key={baseKey}>
-				{id ? <h3 className={styles['list-title']}>{id}:</h3> : ''}
-				<ul className={styles.list}>
-					{Object.entries(rest).map(([key, value]) => {
-						const mapKey = `${baseKey}-${key}`;
-						return (
-							<li key={mapKey} className={styles.item}>
-								{isObj(value) ? (
-									listFromObj({ ...value, id: key }, mapKey)
-								) : (
-									<p>
-										<span className={styles.key}>
-											{key}:
-										</span>{' '}
-										<span className={styles.value}>
-											{value}
-										</span>
-									</p>
-								)}
-							</li>
-						);
-					})}
-				</ul>
-			</div>
-		);
-	}
+	useEffect(() => {
+		const controller = new AbortController();
+		getAllCarts()
+			.then(res => {
+				if (res.data.error) throw 'Failed getting carts';
+				setCarts(res.data);
+			})
+			.catch(e => {
+				console.log(e);
+				setUsers([]);
+			});
+		return () => controller.abort();
+	}, []);
 	return (
-		<div>
-			<TableForm data={products} />
+		<>
+			<h2>Products</h2>
+			<ProductsForm />
+			<h2>Carts</h2>
+			<div className={styles['cart-grid']}>
+				{carts.map(({ id, userId, date, products }) => {
+					const user = users.find(user => user.id === userId);
+					const key = `cart-${id}`;
+					return (
+						<div key={`cart-${id}`} className={styles.cart}>
+							<h3>id: {id}</h3>
+							<div className={styles['cart-user']}>
+								{!user
+									? `User Id: ${userId}`
+									: `User: ${user.username}`}
+							</div>
+							<div className={styles['cart-date']}>
+								{new Date(date).toLocaleDateString()}
+							</div>
+							<div className={styles['cart-products']}>
+								{products.map(({ productId, quantity }) => {
+									return (
+										<div
+											className={styles['cart-product']}
+											key={`${key}-product-${productId}`}
+										>
+											<span>id: {productId}</span>
+											<span> quantity: {quantity}</span>
+										</div>
+									);
+								})}
+							</div>
+						</div>
+					);
+				})}
+			</div>
+			<h2>Users</h2>
+			<div className={styles['user-grid']}>
+				{users.map(user => {
+					const { firstname, lastname } = user.name;
+					const key = `user-${user.id}`;
+					return (
+						<div key={key}>
+							<h3>id: {user.id}</h3>
+							<div>username: {user.username}</div>
+							<div>
+								full name: {firstname} {lastname}
+							</div>
+							<div>email: {user.email}</div>
+						</div>
+					);
+				})}
+			</div>
 			{/* <h2>Admin Stuff</h2>
 
 			<h3>Products:</h3>
@@ -101,7 +136,7 @@ const AdminData = () => {
 						})}
 				</ul>
 			)} */}
-		</div>
+		</>
 	);
 };
 
