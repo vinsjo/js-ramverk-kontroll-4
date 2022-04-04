@@ -19,7 +19,7 @@ const App = () => {
 	return (
 		<HelmetProvider>
 			<BrowserRouter>
-				<PageTitle />
+				<PageTitle defaultTitle="Random Stuff Store" />
 				<Routes>
 					<Route element={<Layout />}>
 						<Route index element={<Home />} />

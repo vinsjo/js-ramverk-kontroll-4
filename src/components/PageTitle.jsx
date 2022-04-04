@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 const titleObj = (path, title) => {
@@ -10,7 +10,8 @@ const titleObj = (path, title) => {
 	}
 	return output;
 };
-const titles = [
+
+const pageTitles = [
 	titleObj('/products'),
 	titleObj('/login'),
 	titleObj('/register'),
@@ -19,16 +20,18 @@ const titles = [
 	titleObj('/admin'),
 ];
 
-const PageTitle = ({ baseTitle = 'RSS' }) => {
+const PageTitle = ({ defaultTitle = 'RSS' }) => {
 	const { pathname } = useLocation();
-	const currentTitle = useMemo(() => {
-		const current = titles.find(({ path }) => pathname.includes(path));
-		return !current ? null : current.title;
+	const [currentTitle, setCurrentTitle] = useState(null);
+	useEffect(() => {
+		const current = pageTitles.find(({ path }) => pathname.includes(path));
+		setCurrentTitle(!current ? null : current.title);
 	}, [pathname]);
+
 	return (
 		<Helmet>
 			<title>
-				{baseTitle}
+				{defaultTitle}
 				{!currentTitle ? '' : ` | ${currentTitle}`}
 			</title>
 		</Helmet>
