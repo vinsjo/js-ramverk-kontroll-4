@@ -22,7 +22,6 @@
 	z-index: 5;
 }
 
-
 .nav.open {
 	transform: translateX(0);
 }

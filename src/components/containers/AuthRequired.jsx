@@ -11,6 +11,7 @@ const AuthRequired = ({
 	fallbackRoute = '/login',
 }) => {
 	const [accessGranted, setAccessGranted] = useState(null);
+
 	const auth = useAuth();
 	const user = useRecoilValue(userState);
 

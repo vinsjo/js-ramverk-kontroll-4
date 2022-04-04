@@ -11,28 +11,25 @@ import userState from '../stores/user/atom';
 const Profile = () => {
 	const auth = useAuth();
 	const [user, setUser] = useRecoilState(userState);
-	const [name, setName] = useState({ firstname: '', lastname: '' });
+	const [fullName, setFullName] = useState('');
 	const handleUpdate = input => {
 		updateUser(input).then(res => {
 			setUser(res.data);
 		});
 	};
 	useEffect(() => {
-		if (!user) {
-			setName({ firstname: '', lastname: '' });
-			return;
-		}
-		setName(user.name);
+		if (!user) return setFullName('');
+		setFullName(`${user.name.firstname} ${user.name.lastname}`);
 	}, [user]);
 	return (
 		<AuthRequired>
 			<h3>
-				Hello, {name.firstname}!{' '}
-				<Avatar
-					size={40}
-					name={`${name.firstname} ${name.lastname}`}
-					variant="beam"
-				/>
+				Hello, {fullName}!{' '}
+				{!fullName ? (
+					''
+				) : (
+					<Avatar size={40} name={fullName} variant="beam" />
+				)}
 			</h3>
 
 			<UserForm
