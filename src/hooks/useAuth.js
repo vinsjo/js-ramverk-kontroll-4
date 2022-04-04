@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useEffect, useCallback } from 'react';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import userState from '../stores/user/atom';
 import authState from '../stores/auth/atom';
 import axios from 'axios';
@@ -10,11 +10,15 @@ const useAuth = () => {
 	const [auth, setAuth] = useRecoilState(authState);
 	const resetAuth = useResetRecoilState(authState);
 
-	const setUser = useSetRecoilState(userState);
+	const [user, setUser] = useRecoilState(userState);
 	const resetUser = useResetRecoilState(userState);
 
 	const validAuth = auth => !!(isObj(auth) && auth.token && auth.userId);
-	const isAuthorized = () => validAuth(auth);
+
+	const isAuthorized = useCallback(() => validAuth(auth), [auth]);
+	const isLoggedIn = () => isAuthorized() && isObj(user);
+
+	const isAdmin = () => isLoggedIn() && user.role === 'admin';
 
 	/**
 	 * @param {{username: String, password: string}} inputData
@@ -31,6 +35,27 @@ const useAuth = () => {
 		}
 	};
 
+	const loadUserData = useCallback(
+		async controller => {
+			if (!isAuthorized()) {
+				resetUser();
+				return;
+			}
+			try {
+				const res = await api.getUser(auth.userId, controller);
+				if (!res.data || res.data.error) {
+					throw 'Failed getting user data';
+				}
+				const { __v, ...user } = res.data;
+				setUser(user);
+			} catch (e) {
+				if (!axios.isCancel(e)) console.log(e);
+				resetUser();
+			}
+		},
+		[auth, user, setUser]
+	);
+
 	useEffect(() => {
 		if (!isAuthorized()) {
 			resetUser();
@@ -44,8 +69,10 @@ const useAuth = () => {
 				const { __v, ...user } = res.data;
 				setUser(user);
 			} catch (e) {
-				if (!axios.isCancel(e)) console.log(e);
-				resetUser();
+				if (!axios.isCancel(e)) {
+					console.log(e);
+					resetUser();
+				}
 			}
 		})();
 		return () => controller.abort();
@@ -53,7 +80,10 @@ const useAuth = () => {
 
 	return {
 		...auth,
+		user,
 		isAuthorized,
+		isLoggedIn,
+		isAdmin,
 		login,
 		logout: () => {
 			resetAuth();

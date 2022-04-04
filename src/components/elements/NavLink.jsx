@@ -9,7 +9,7 @@ const NavLink = ({ className, onClick, to, title, children }) => {
 		<RouterNavLink
 			to={to}
 			title={title}
-			onClick={() => isFn(onClick) && onClick()}
+			onClick={e => isFn(onClick) && onClick(e)}
 			className={({ isActive }) =>
 				classNames(
 					styles.link,

@@ -2,18 +2,17 @@ import React, { useState, useCallback } from 'react';
 import { Button, InputField, PasswordField } from '../elements';
 import { useAuth } from '../../hooks';
 import styles from './LoginForm.module.css';
+import { isFn } from 'x-is-type';
 
 const initialInput = { username: '', password: '' };
 
-const LoginForm = () => {
-	const auth = useAuth();
-	const [input, setInput] = useState(initialInput);
-	const resetInput = () => setInput({ ...initialInput });
+const LoginForm = ({ onSubmit }) => {
+	const [input, setInput] = useState({ ...initialInput });
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		auth.login(input);
-		resetInput();
+		isFn(onSubmit) && onSubmit(input);
+		setInput({ ...initialInput });
 	};
 
 	const handleInput = useCallback(

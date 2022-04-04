@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useCart } from '../../hooks';
+import { useAuth, useCart } from '../../hooks';
 import { NavLink } from '../elements';
 import styles from './Nav.module.css';
-import { useRecoilValue } from 'recoil';
-import userState from '../../stores/user/atom';
 import { BurgerButton } from '../elements';
 import { classNames } from '../../utils';
 
 const Nav = () => {
 	const cart = useCart();
-	const user = useRecoilValue(userState);
+	const auth = useAuth();
 
 	const [openBurger, setOpenBurger] = useState(false);
 
 	const { pathname } = useLocation();
-	useEffect(() => setOpenBurger(false), [pathname]);
+	useEffect(() => openBurger && setOpenBurger(false), [pathname]);
 
 	return (
 		<div className={styles.container}>
@@ -32,28 +30,50 @@ const Nav = () => {
 				>
 					Products
 				</NavLink>
-				<NavLink
-					className={styles.link}
-					to="/profile"
-					title="Profile Page"
-				>
-					Profile
-				</NavLink>
-
-				{user && user.role === 'admin' ? (
-					<NavLink
-						className={styles.link}
-						to="/admin"
-						title="Admin Page"
-					>
-						Admin
-					</NavLink>
-				) : (
+				{!auth.isAdmin() && (
 					<NavLink
 						className={styles.link}
 						to="/cart"
 						title="Shopping Cart"
 					>{`Cart${!cart.count ? '' : `(${cart.count})`}`}</NavLink>
+				)}
+				{auth.isLoggedIn() ? (
+					<>
+						{auth.isAdmin() && (
+							<NavLink
+								className={styles.link}
+								to="/admin"
+								title="Admin Page"
+							>
+								Admin
+							</NavLink>
+						)}
+						<NavLink
+							className={styles.link}
+							to="/profile"
+							title="Profile Page"
+						>
+							Profile
+						</NavLink>
+						<NavLink
+							to=""
+							variant="icon"
+							onClick={e => {
+								e.preventDefault();
+								auth.logout();
+							}}
+						>
+							Logout
+						</NavLink>
+					</>
+				) : (
+					<NavLink
+						className={styles.link}
+						to="/login"
+						title="Login Page"
+					>
+						Login
+					</NavLink>
 				)}
 			</nav>
 			<BurgerButton

@@ -5,6 +5,25 @@ import ProductsForm from './forms/ProductsForm';
 import DataTable from './DataTable';
 
 import styles from './AdminData.module.css';
+import { isFn } from 'x-is-type';
+/**
+ * @param {Function} apiGetter
+ * @param {String} [errorMsg]
+ */
+const fetchAdminData = async (apiGetter, errorMsg = null) => {
+	try {
+		const res = await apiGetter();
+		if (res.data.error) {
+			throw new Error(
+				errorMsg || 'An error occurred when fetching admin data'
+			);
+		}
+		return res.data;
+	} catch (e) {
+		console.log(e);
+		return [];
+	}
+};
 
 const AdminData = () => {
 	const [users, setUsers] = useState([]);
@@ -12,34 +31,19 @@ const AdminData = () => {
 
 	useEffect(() => {
 		const controller = new AbortController();
-		getAllUsers()
-			.then(res => {
-				if (res.data.error) throw 'Failed getting users';
-				setUsers(
-					res.data.map(data => {
-						const { password, __v, ...user } = data;
-						return user;
-					})
-				);
-			})
-			.catch(e => {
-				console.log(e);
-				setUsers([]);
-			});
+		fetchAdminData(
+			() => getAllUsers(controller),
+			'Failed getting users'
+		).then(data => setUsers(data.map(user => user)));
 		return () => controller.abort();
 	}, []);
 
 	useEffect(() => {
 		const controller = new AbortController();
-		getAllCarts()
-			.then(res => {
-				if (res.data.error) throw 'Failed getting carts';
-				setCarts(res.data);
-			})
-			.catch(e => {
-				console.log(e);
-				setUsers([]);
-			});
+		fetchAdminData(
+			() => getAllCarts(controller),
+			'Failed getting carts'
+		).then(data => setCarts(data));
 		return () => controller.abort();
 	}, []);
 
@@ -66,10 +70,9 @@ const AdminData = () => {
 			<section className={styles.section}>
 				<h2 className={styles.title}>Users</h2>
 				<DataTable
-					data={users.map(user => {
-						const { password, address, __v, ...data } = user;
-						return data;
-					})}
+					data={users.map(
+						({ __v, password, address, ...user }) => user
+					)}
 				/>
 			</section>
 		</div>

@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import userState from '../stores/user/atom';
+import { useAuth } from '../hooks';
 import { Navigate } from 'react-router-dom';
 import LoginForm from '../components/forms/LoginForm';
 
 const Login = () => {
-	const user = useRecoilValue(userState);
-	return !user ? (
+	const { isLoggedIn, isAdmin, login } = useAuth();
+	return !isLoggedIn() ? (
 		<>
-			<LoginForm />
+			<LoginForm onSubmit={data => login(data)} />
 			<p>
 				Don't have an account?{' '}
 				<Link to="/register" title="To Signup Page">
@@ -17,7 +16,7 @@ const Login = () => {
 				</Link>
 			</p>
 		</>
-	) : user.role === 'admin' ? (
+	) : isAdmin() ? (
 		<Navigate replace to="/admin" />
 	) : (
 		<Navigate replace to="/profile" />

@@ -9,13 +9,13 @@ import AuthRequired from '../components/containers/AuthRequired';
 import userState from '../stores/user/atom';
 
 const Profile = () => {
-	const auth = useAuth();
+	const { logout } = useAuth();
 	const [user, setUser] = useRecoilState(userState);
 	const [fullName, setFullName] = useState('');
 	const handleUpdate = input => {
-		updateUser(input).then(res => {
-			setUser(res.data);
-		});
+		updateUser(input)
+			.then(res => setUser(res.data))
+			.catch(e => console.log(e));
 	};
 	useEffect(() => {
 		if (!user) return setFullName('');
@@ -38,7 +38,7 @@ const Profile = () => {
 				data={user}
 				title="Update account details"
 			/>
-			<Button onClick={() => auth.logout()}>Log out</Button>
+			<Button onClick={() => logout()}>Log out</Button>
 		</AuthRequired>
 	);
 };

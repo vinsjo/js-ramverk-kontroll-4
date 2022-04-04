@@ -12,16 +12,11 @@ const AuthRequired = ({
 }) => {
 	const [accessGranted, setAccessGranted] = useState(null);
 
-	const auth = useAuth();
-	const user = useRecoilValue(userState);
+	const { token, user, isLoggedIn, isAdmin } = useAuth();
 
 	useEffect(() => {
-		setAccessGranted(
-			auth.isAuthorized() &&
-				isObj(user) &&
-				(!adminRequired || user.role === 'admin')
-		);
-	}, [user]);
+		setAccessGranted(isLoggedIn() && (!adminRequired || isAdmin()));
+	}, [token, user]);
 
 	return accessGranted === null ? (
 		''
