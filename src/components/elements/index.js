@@ -9,3 +9,5 @@ export { default as TextArea } from './input/TextArea';
 export { default as NumberInput } from './input/NumberInput';
 
 export { default as NavLink } from './NavLink';
+
+export { default as Avatar } from './Avatar';
